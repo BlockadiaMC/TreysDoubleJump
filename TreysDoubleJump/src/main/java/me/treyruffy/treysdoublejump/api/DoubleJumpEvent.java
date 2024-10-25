@@ -1,5 +1,6 @@
 package me.treyruffy.treysdoublejump.api;
 
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -22,11 +23,11 @@ public class DoubleJumpEvent extends Event implements Cancellable {
 	private float pitch;
 	private boolean particlesEnabled;
 	private boolean particlesForEveryone;
-	private String particleType;
+	private Particle particleType;
 	private int particleAmount;
-	private float r;
-	private float g;
-	private float b;
+	private int r;
+	private int g;
+	private int b;
 
   /**
    * Instantiates a new Double jump event.
@@ -49,22 +50,22 @@ public class DoubleJumpEvent extends Event implements Cancellable {
    * @param b the b
    */
   public DoubleJumpEvent(
-      Player player,
-      boolean cooldownEnabled,
-      int cooldownTime,
-      double velocityForward,
-      double velocityUp,
-      boolean soundsEnabled,
-      Sound sound,
-      float volume,
-      float pitch,
-      boolean particlesEnabled,
-      boolean particlesForEveryone,
-      String particleType,
-      int particleAmount,
-      float r,
-      float g,
-      float b) {
+		  Player player,
+		  boolean cooldownEnabled,
+		  int cooldownTime,
+		  double velocityForward,
+		  double velocityUp,
+		  boolean soundsEnabled,
+		  Sound sound,
+		  float volume,
+		  float pitch,
+		  boolean particlesEnabled,
+		  boolean particlesForEveryone,
+		  Particle particleType,
+		  int particleAmount,
+		  int r,
+		  int g,
+		  int b) {
 		this.player = player;
 		this.cooldownEnabled = cooldownEnabled;
 		this.cooldownTime = cooldownTime;
@@ -301,18 +302,18 @@ public class DoubleJumpEvent extends Event implements Cancellable {
   /**
    * Gets particle type.
    *
-   * @return the particle type as a string
+   * @return the particle type
    */
-  public String getParticleType() {
+  public Particle getParticleType() {
 		return this.particleType;
 	}
 
   /**
    * Sets particle type.
    *
-   * @param particleType the particle type as a string
+   * @param particleType the particle type
    */
-  public void setParticleType(String particleType) {
+  public void setParticleType(Particle particleType) {
 		this.particleType = particleType;
 	}
 
@@ -340,7 +341,7 @@ public class DoubleJumpEvent extends Event implements Cancellable {
    *
    * @return the particle r
    */
-  public float getParticleR() {
+  public int getParticleR() {
 		return this.r;
 	}
 
@@ -350,7 +351,7 @@ public class DoubleJumpEvent extends Event implements Cancellable {
    *
    * @param particleR the particle r
    */
-  public void setParticleR(float particleR) {
+  public void setParticleR(int particleR) {
 		this.r = particleR;
 	}
 
@@ -360,7 +361,7 @@ public class DoubleJumpEvent extends Event implements Cancellable {
    *
    * @return the particle g
    */
-  public float getParticleG() {
+  public int getParticleG() {
 		return this.g;
 	}
 
@@ -370,7 +371,7 @@ public class DoubleJumpEvent extends Event implements Cancellable {
    *
    * @param particleG the particle g
    */
-  public void setParticleG(float particleG) {
+  public void setParticleG(int particleG) {
 		this.g = particleG;
 	}
 
@@ -380,7 +381,7 @@ public class DoubleJumpEvent extends Event implements Cancellable {
    *
    * @return the particle b
    */
-  public float getParticleB() {
+  public int getParticleB() {
 		return this.b;
 	}
 
@@ -390,7 +391,7 @@ public class DoubleJumpEvent extends Event implements Cancellable {
    *
    * @param particleB the particle b
    */
-  public void setParticleB(float particleB) {
+  public void setParticleB(int particleB) {
 		this.b = particleB;
 	}
 }

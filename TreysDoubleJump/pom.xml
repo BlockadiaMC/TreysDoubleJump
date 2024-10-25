@@ -38,23 +38,11 @@
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.1.1</version>
                 <configuration>
-                    <relocations>
-                        <relocation>
-                            <pattern>org.bstats</pattern>
-                            <shadedPattern>me.treyruffy.treysdoublejump.util.metrics</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>net.kyori</pattern>
-                            <shadedPattern>me.treyruffy.treysdoublejump.util.adventure</shadedPattern>
-                        </relocation>
-                    </relocations>
                     <artifactSet>
                         <includes>
                             <include>me.treyruffy.treysdoublejump:TreysDoubleJumpv*</include>
                             <include>me.treyruffy.treysdoublejump:TreysDoubleJumpNmsReference</include>
-                            <include>org.bstats:bstats-bukkit</include>
                             <include>commons-io</include>
-                            <include>net.kyori</include>
                         </includes>
                     </artifactSet>
                 </configuration>
@@ -72,19 +60,10 @@
 
     <dependencies>
         <dependency>
-            <groupId>net.kyori</groupId>
-            <artifactId>adventure-text-minimessage</artifactId>
-            <version>4.1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>net.kyori</groupId>
-            <artifactId>adventure-api</artifactId>
-            <version>4.8.1</version>
-        </dependency>
-        <dependency>
-            <groupId>net.kyori</groupId>
-            <artifactId>adventure-platform-bukkit</artifactId>
-            <version>4.0.0-SNAPSHOT</version>
+            <groupId>io.papermc.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>1.21.1-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>
@@ -93,95 +72,17 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.8.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.bstats</groupId>
-            <artifactId>bstats-bukkit</artifactId>
-            <version>1.7</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.pl3x.purpur</groupId>
-            <artifactId>purpur-api</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>net.kyori</groupId>
-                    <artifactId>adventure-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>net.kyori</groupId>
-                    <artifactId>adventure-text-serializer-gson</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>net.kyori</groupId>
-                    <artifactId>adventure-text-serializer-legacy</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>net.kyori</groupId>
-                    <artifactId>adventure-text-serializer-plain</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>fr.neatmonster</groupId>
             <artifactId>nocheatplus</artifactId>
             <version>3.16.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>me.treyruffy.treysdoublejump</groupId>
-            <artifactId>TreysDoubleJumpv18R1</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>me.treyruffy.treysdoublejump</groupId>
-            <artifactId>TreysDoubleJumpv18R2</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>me.treyruffy.treysdoublejump</groupId>
-            <artifactId>TreysDoubleJumpv18R3</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>me.treyruffy.treysdoublejump</groupId>
-            <artifactId>TreysDoubleJumpv19R1</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>me.treyruffy.treysdoublejump</groupId>
-            <artifactId>TreysDoubleJumpv19R2</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>me.treyruffy.treysdoublejump</groupId>
-            <artifactId>TreysDoubleJumpv110R1</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>me.treyruffy.treysdoublejump</groupId>
-            <artifactId>TreysDoubleJumpv111R1</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>me.treyruffy.treysdoublejump</groupId>
-            <artifactId>TreysDoubleJumpv112R1</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>me.treyruffy.treysdoublejump</groupId>
-            <artifactId>TreysDoubleJumpNmsReference</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
-
     <repositories>
+        <repository>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
         <repository>
             <id>md_5-releases</id>
             <url>https://repo.md-5.net/content/repositories/snapshots/</url>
@@ -197,10 +98,6 @@
         <repository> <!-- for development builds -->
             <id>sonatype-oss-snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </repository>
-        <repository>
-            <id>purpur</id>
-            <url>https://repo.pl3x.net/</url>
         </repository>
     </repositories>
 

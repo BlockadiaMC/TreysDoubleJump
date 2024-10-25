@@ -2,25 +2,14 @@ package me.treyruffy.treysdoublejump.events;
 
 import fr.neatmonster.nocheatplus.checks.CheckType;
 import fr.neatmonster.nocheatplus.hooks.NCPExemptionManager;
-import me.treyruffy.treysdoublejump.Particle_1_16_R3;
 import me.treyruffy.treysdoublejump.TreysDoubleJump;
 import me.treyruffy.treysdoublejump.api.DoubleJumpEvent;
 import me.treyruffy.treysdoublejump.api.GroundPoundEvent;
+import me.treyruffy.treysdoublejump.api.ParticlesMain;
 import me.treyruffy.treysdoublejump.api.PreDoubleJumpEvent;
-import me.treyruffy.treysdoublejump.nmsreference.ParticlesMain;
 import me.treyruffy.treysdoublejump.util.ConfigManager;
-import me.treyruffy.treysdoublejump.v1_10_R1.Particle_1_10_R1;
-import me.treyruffy.treysdoublejump.v1_11_R1.Particle_1_11_R1;
-import me.treyruffy.treysdoublejump.v1_12_R1.Particle_1_12_R1;
-import me.treyruffy.treysdoublejump.v1_8_R1.Particle_1_8_R1;
-import me.treyruffy.treysdoublejump.v1_8_R2.Particle_1_8_R2;
-import me.treyruffy.treysdoublejump.v1_8_R3.Particle_1_8_R3;
-import me.treyruffy.treysdoublejump.v1_9_R1.Particle_1_9_R1;
-import me.treyruffy.treysdoublejump.v1_9_R2.Particle_1_9_R2;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import net.kyori.adventure.util.TriState;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -57,7 +46,9 @@ public class DoubleJump implements Listener {
 	public static Integer getCooldown(Player p){
 		return cooldown.get(p);
 	}
-	
+
+	private final ParticlesMain particles = new ParticlesMain();
+
 	// Removes the exemption from NCP if the player leaves
 	@EventHandler
 	public void onLeave(PlayerQuitEvent e) {
@@ -129,7 +120,7 @@ public class DoubleJump implements Listener {
 						p.setAllowFlight(true);
 						try {
 							if (!ConfigManager.getConfig().getBoolean("NoFall.Enabled"))
-								p.setFlyingFallDamage(true);
+								p.setFlyingFallDamage(TriState.TRUE);
 						} catch (NoSuchMethodError ignored) {}
 						Grounded.remove(p.getUniqueId().toString());
 						return;
@@ -144,7 +135,7 @@ public class DoubleJump implements Listener {
 					p.setAllowFlight(true);
 					try {
 						if (!ConfigManager.getConfig().getBoolean("NoFall.Enabled"))
-							p.setFlyingFallDamage(true);
+							p.setFlyingFallDamage(TriState.TRUE);
 					} catch (NoSuchMethodError ignored) {}
 					Grounded.remove(p.getUniqueId().toString());
 					NCP(p);
@@ -163,7 +154,7 @@ public class DoubleJump implements Listener {
 						p.setAllowFlight(true);
 						try {
 							if (!ConfigManager.getConfig().getBoolean("NoFall.Enabled"))
-								p.setFlyingFallDamage(true);
+								p.setFlyingFallDamage(TriState.TRUE);
 						} catch (NoSuchMethodError ignored) {}
 						Grounded.remove(p.getUniqueId().toString());
 					}, 1L);
@@ -180,7 +171,7 @@ public class DoubleJump implements Listener {
 						p.setAllowFlight(true);
 						try {
 							if (!ConfigManager.getConfig().getBoolean("NoFall.Enabled"))
-								p.setFlyingFallDamage(true);
+								p.setFlyingFallDamage(TriState.TRUE);
 						} catch (NoSuchMethodError ignored) {}
 						Grounded.remove(p.getUniqueId().toString());
 						return;
@@ -195,7 +186,7 @@ public class DoubleJump implements Listener {
 					p.setAllowFlight(true);
 					try {
 						if (!ConfigManager.getConfig().getBoolean("NoFall.Enabled"))
-							p.setFlyingFallDamage(true);
+							p.setFlyingFallDamage(TriState.TRUE);
 					} catch (NoSuchMethodError ignored) {}
 					Grounded.remove(p.getUniqueId().toString());
 					NCP(p);
@@ -211,7 +202,7 @@ public class DoubleJump implements Listener {
 			p.setAllowFlight(true);
 			try {
 				if (!ConfigManager.getConfig().getBoolean("NoFall.Enabled"))
-					p.setFlyingFallDamage(true);
+					p.setFlyingFallDamage(TriState.TRUE);
 			} catch (NoSuchMethodError ignored) {}
 			Grounded.remove(p.getUniqueId().toString());
 		}
@@ -278,11 +269,11 @@ public class DoubleJump implements Listener {
 		boolean particlesEnabled = ((p.hasPermission("tdj.particles")) && (ConfigManager.getConfig().getBoolean(
 				"Particles.Enabled")));
 		boolean particlesForEveryone = ConfigManager.getConfig().getBoolean("Particles.AllPlayers");
-		String particleType = ConfigManager.getConfig().getString("Particles.Type");
+		Particle particleType = Particle.valueOf(ConfigManager.getConfig().getString("Particles.Type"));
 		int particleAmount = ConfigManager.getConfig().getInt("Particles.Amount");
-		float r = (float) ConfigManager.getConfig().getDouble("Particles.R");
-		float g = (float) ConfigManager.getConfig().getDouble("Particles.G");
-		float b = (float) ConfigManager.getConfig().getDouble("Particles.B");
+		int r = ConfigManager.getConfig().getInt("Particles.R");
+		int g = ConfigManager.getConfig().getInt("Particles.G");
+		int b = ConfigManager.getConfig().getInt("Particles.B");
 
 		DoubleJumpEvent doubleJumpEvent = new DoubleJumpEvent(p, cooldownEnabled, cooldownTime, velocityForward,
 				velocityUp, soundsEnabled, sound, volume, pitch, particlesEnabled, particlesForEveryone, particleType,
@@ -294,7 +285,7 @@ public class DoubleJump implements Listener {
 		p.setAllowFlight(false);
 		try {
 			if (!ConfigManager.getConfig().getBoolean("NoFall.Enabled"))
-				p.setFlyingFallDamage(false);
+				p.setFlyingFallDamage(TriState.FALSE);
 		} catch (NoSuchMethodError ignored) {}
 		p.setFlying(false);
 
@@ -332,48 +323,8 @@ public class DoubleJump implements Listener {
 
 		if (doubleJumpEvent.particlesEnabled()) {
 			String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
-			ParticlesMain particles = null;
-			switch (version) {
-				case "v1_8_R1":
-					particles = new Particle_1_8_R1();
-					break;
-				case "v1_8_R2":
-					particles = new Particle_1_8_R2();
-					break;
-				case "v1_8_R3":
-					particles = new Particle_1_8_R3();
-					break;
-				case "v1_9_R1":
-					particles = new Particle_1_9_R1();
-					break;
-				case "v1_9_R2":
-					particles = new Particle_1_9_R2();
-					break;
-				case "v1_10_R1":
-					particles = new Particle_1_10_R1();
-					break;
-				case "v1_11_R1":
-					particles = new Particle_1_11_R1();
-					break;
-				case "v1_12_R1":
-					particles = new Particle_1_12_R1();
-					break;
-				case "v1_13_R1":
-				case "v1_13_R2":
-				case "v1_14_R1":
-				case "v1_15_R1":
-				case "v1_16_R1":
-				case "v1_16_R2":
-				case "v1_16_R3":
-				case "v1_17_R1":
-					particles = new Particle_1_16_R3();
-					break;
-				default:
-					if (version.substring(3).startsWith("1")) {
-						particles = new Particle_1_16_R3();
-					}
-					break;
-			}
+
+
 			if (doubleJumpEvent.isParticlesForEveryone()) {
 				for (Player players : Bukkit.getOnlinePlayers()) {
 					assert particles != null;

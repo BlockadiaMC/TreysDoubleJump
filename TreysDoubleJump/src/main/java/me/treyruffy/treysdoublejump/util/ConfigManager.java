@@ -3,7 +3,6 @@ package me.treyruffy.treysdoublejump.util;
 import me.treyruffy.treysdoublejump.TreysDoubleJump;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.apache.commons.lang.NullArgumentException;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -13,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,9 +42,7 @@ public class ConfigManager {
 
 	// Saves the config
 	public static void saveConfig() {
-		if (MainConfig == null) {
-			throw new NullArgumentException("Cannot save a non-existent file!");
-		}
+		Objects.requireNonNull(MainConfig);
 		try {
 			MainConfig.save(MainConfigFile);
 		} catch (IOException e) {
@@ -67,7 +65,7 @@ public class ConfigManager {
 
 	public static Component getConfigMessage(String message) {
 		String oldConfigMessage = getOldConfigMessage(message);
-		return MiniMessage.get().parse(oldConfigMessage);
+		return MiniMessage.miniMessage().deserialize(oldConfigMessage);
 	}
 
 	private static String getOldConfigMessage(String message) {
@@ -75,9 +73,7 @@ public class ConfigManager {
 		if (messageFromConfig == null) {
 			return ChatColor.RED + "Messages. " + message + " is not set in the config.";
 		}
-		if (TreysDoubleJump.canUseHexColorCode()) {
-			messageFromConfig = translateHexCodes(messageFromConfig);
-		}
+		messageFromConfig = translateHexCodes(messageFromConfig);
 		return ChatColor.translateAlternateColorCodes('&', messageFromConfig);
 	}
 

@@ -106,7 +106,7 @@ Sounds:
 Particles:
     Enabled: true
     # Do you want players with tdj.particles to summon particles when double jumping?
-    Type: EXPLOSION_NORMAL
+    Type: EXPLOSION
     # The type of particle played if the above option is true
     AllPlayers: true
     # Do you want all players to see the player's particles when double jumping?
