@@ -3,10 +3,7 @@ package me.treyruffy.treysdoublejump.events;
 import fr.neatmonster.nocheatplus.checks.CheckType;
 import fr.neatmonster.nocheatplus.hooks.NCPExemptionManager;
 import me.treyruffy.treysdoublejump.TreysDoubleJump;
-import me.treyruffy.treysdoublejump.api.DoubleJumpEvent;
-import me.treyruffy.treysdoublejump.api.GroundPoundEvent;
-import me.treyruffy.treysdoublejump.api.ParticlesMain;
-import me.treyruffy.treysdoublejump.api.PreDoubleJumpEvent;
+import me.treyruffy.treysdoublejump.api.*;
 import me.treyruffy.treysdoublejump.util.ConfigManager;
 import net.kyori.adventure.util.TriState;
 import org.bukkit.*;
@@ -99,7 +96,7 @@ public class DoubleJump implements Listener {
 		if (DoubleJumpCommand.DisablePlayers.contains(p.getUniqueId().toString())) {
 			return;
 		}
-		if (FlightCommand.FlyingPlayers.contains(p.getUniqueId().toString())) {
+		if (FlightAPI.isFlightEnabled(p)) {
 			return;
 		}
 		if (!ConfigManager.getConfig().getBoolean("InfiniteJump.Enabled") || !p.hasPermission("tdj.infinitejump")) {
@@ -224,7 +221,7 @@ public class DoubleJump implements Listener {
 	@EventHandler
 	public void onPlayerToggleFlight(PlayerToggleFlightEvent e) {
 		final Player p = e.getPlayer();
-		if (FlightCommand.FlyingPlayers.contains(p.getUniqueId().toString())) {
+		if (FlightAPI.isFlightEnabled(p)) {
 			return;
 		}
 		if (cooldown.containsKey(p)) {
@@ -363,7 +360,7 @@ public class DoubleJump implements Listener {
 		if (!Grounded.contains(p.getUniqueId().toString())) {
 			return;
 		}
-		if (FlightCommand.FlyingPlayers.contains(p.getUniqueId().toString())) {
+		if (FlightAPI.isFlightEnabled(p)) {
 			return;
 		}
 		if (DoubleJumpCommand.DisablePlayers.contains(p.getUniqueId().toString())) {

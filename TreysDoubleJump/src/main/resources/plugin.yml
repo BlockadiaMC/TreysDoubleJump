@@ -5,6 +5,7 @@ author: TreyRuffy
 description: ${project.description}
 website: ${project.url}
 prefix: Trey's Double Jump
+depend: ["TempFly"]
 softdepend: [NoCheatPlus, PlaceholderAPI, MVdWPlaceholderAPI]
 api-version: 1.13
 permissions:
@@ -18,7 +19,6 @@ permissions:
       tdj.particles: true
       tdj.command: true
       tdj.nofall: true
-      tdj.fly: true
       tdj.updates: true
       tdj.groundpound: true
       tdj.groundpoundcommand: true
@@ -41,9 +41,6 @@ permissions:
   tdj.nofall:
     default: true
     description: No fall when you have double jump on.
-  tdj.fly:
-    default: op
-    description: Allows you to fly!
   tdj.updates:
     default: op
     description: Tells these players there is an update for TDJ
@@ -59,16 +56,10 @@ permissions:
   tdj.toggleothers:
     default: op
     description: Allows you to toggle other people's double jump
-  tdj.fly.toggleothers:
-    default: op
-    description: Allows you to toggle other people's flight
 commands:
   tdj:
     description: Allows you to toggle double jumping.
     aliases: [dj, doublejump, treysdoublejump]
-  fly:
-    description: Allows you to fly!
-    aliases: [flight, togglefly, toggleflight]
   groundpound:
     description: Allows you to toggle ground pounding
     aliases: [togglegroundpound]

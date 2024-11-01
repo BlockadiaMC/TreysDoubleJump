@@ -1,0 +1,1 @@
+    mvn install:install-file -Dfile=libs/TempFly-3.1.7.jar -DgroupId=com.moneybags -DartifactId=tempfly -Dversion=3.1.7 -Dpackaging=jar

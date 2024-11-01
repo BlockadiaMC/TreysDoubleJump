@@ -39,7 +39,6 @@ public class TreysDoubleJump extends JavaPlugin implements Listener {
 		pm.registerEvents(new NoFallDamage(), this);
 		pm.registerEvents(new PlayerWorldSwitchEvent(), this);
 
-		Objects.requireNonNull(getCommand("fly")).setExecutor(new FlightCommand());
 		Objects.requireNonNull(getCommand("tdj")).setExecutor(new DoubleJumpCommand());
 		Objects.requireNonNull(getCommand("djreload")).setExecutor(new DoubleJumpCommand());
 		Objects.requireNonNull(getCommand("groundpound")).setExecutor(new GroundPoundCommand());

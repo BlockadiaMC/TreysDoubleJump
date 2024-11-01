@@ -1,6 +1,6 @@
 package me.treyruffy.treysdoublejump.events;
 
-import me.treyruffy.treysdoublejump.TreysDoubleJump;
+import me.treyruffy.treysdoublejump.api.FlightAPI;
 import me.treyruffy.treysdoublejump.util.ConfigManager;
 import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
@@ -105,7 +105,7 @@ public class DoubleJumpCommand implements CommandExecutor {
 					}
 					// /tdj <username>
 					else {
-						if (DisablePlayers.contains(username.getUniqueId().toString()) || FlightCommand.FlyingPlayers.contains(username.getUniqueId().toString())) {
+						if (DisablePlayers.contains(username.getUniqueId().toString()) || FlightAPI.isFlightEnabled(username)) {
 							if (addEnabledPlayer(username)) {
 								sender.sendMessage(ConfigManager.getConfigMessage(
 										"ToggledOnOther").replaceText(TextReplacementConfig.builder().matchLiteral(
@@ -142,7 +142,7 @@ public class DoubleJumpCommand implements CommandExecutor {
 				Player p = (Player) sender;
 				if (checkWorldAndPerm(p))
 					return true;
-				if (DisablePlayers.contains(p.getUniqueId().toString()) || FlightCommand.FlyingPlayers.contains(p.getUniqueId().toString())) {
+				if (DisablePlayers.contains(p.getUniqueId().toString()) || FlightAPI.isFlightEnabled(p)) {
 					if (addEnabledPlayer(p))
 						p.sendMessage(ConfigManager.getConfigMessage(
 								"ToggledOn"));
@@ -198,7 +198,7 @@ public class DoubleJumpCommand implements CommandExecutor {
 		if (!ConfigManager.getConfig().getStringList("EnabledWorlds").contains((player).getWorld().getName())) {
 			return true;
 		}
-		if (!FlightCommand.FlyingPlayers.contains(player.getUniqueId().toString())) {
+		if (!FlightAPI.isFlightEnabled(player)) {
 			player.setAllowFlight(false);
 			try {
 				if (!ConfigManager.getConfig().getBoolean("NoFall.Enabled"))
@@ -210,7 +210,6 @@ public class DoubleJumpCommand implements CommandExecutor {
 	}
 
 	private boolean addEnabledPlayer(Player player) {
-		FlightCommand.FlyingPlayers.remove(player.getUniqueId().toString());
 		if (!DisablePlayers.contains(player.getUniqueId().toString())) {
 			return true;
 		}
